@@ -36,7 +36,8 @@ public class PlayerControl: MonoBehaviour
 
         rb2d.velocity = Vector2.SmoothDamp(rb2d.velocity, targetVelocity, ref targetVelocity, Time.deltaTime * smooth);
 
-        //if the input is moving the player right and the player is facing left...
+
+        // the input is moving the player right and the player is facing left...
         if (x > 0 && !facingRight)
         {
             // ... flip the player.
@@ -72,16 +73,20 @@ public class PlayerControl: MonoBehaviour
         {
             anim.SetBool("Jumping", false);
         }
-        if (isGrounded == true) {
-            extraJumps = 2;
+        if (isGrounded == true)
+        {
+            extraJumps = 1;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && extraJumps > 0)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            rb2d.velocity = Vector2.up * jumpForce;
+        }
+        else if (Input.GetKeyDown(KeyCode.Space) && extraJumps > 0)
         {
             rb2d.velocity = Vector2.up * jumpForce;
             extraJumps--;
-        }else if(Input.GetKeyDown(KeyCode.Space) && extraJumps == 0 && isGrounded){
-            rb2d.velocity = Vector2.up * jumpForce;  
+
         }
 
 
